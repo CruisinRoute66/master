@@ -96,7 +96,6 @@ header, nav, [class*="sticky"].top-0 {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   background: rgba(255,255,255,0.85) !important;
-  border-bottom: 2px solid var(--rt66-orange);
 }
 
 /* ---- Hero section ---- */
