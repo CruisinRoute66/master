@@ -1,0 +1,232 @@
+/* ============================================
+   Cruisin' Route 66 - Custom Style Overrides
+   Retro Mother Road aesthetic
+   ============================================ */
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  --rt66-orange: #f97316;
+  --rt66-rust: #c2410c;
+  --rt66-turquoise: #0d9488;
+  --rt66-cream: #fef3c7;
+  --rt66-desert: #d4a574;
+  --rt66-asphalt: #292524;
+  --rt66-sky: #bae6fd;
+  --rt66-sunset: #fb923c;
+  --rt66-neon: #f43f5e;
+  --rt66-font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --rt66-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ---- Global ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--rt66-font-body);
+  background: #fafaf9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Headings: Retro display font ---- */
+h1, h2, h3, h4, h5, h6,
+.text-4xl, .text-5xl, .md\\:text-5xl, .md\\:text-6xl {
+  font-family: var(--rt66-font-display) !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+h1, .text-5xl, .md\\:text-6xl {
+  background: linear-gradient(135deg, var(--rt66-orange), var(--rt66-rust));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Links ---- */
+a:not([class*="bottom-banner"]) {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover:not([class*="bottom-banner"]) {
+  text-decoration-color: var(--rt66-orange) !important;
+}
+
+/* ---- Cards & Containers ---- */
+.bg-white.rounded-lg,
+.bg-white.rounded-xl,
+[class*="rounded-lg"].bg-white,
+[class*="rounded-xl"].bg-white,
+.shadow-lg, .shadow-xl {
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.bg-white.rounded-lg:hover,
+.bg-white.rounded-xl:hover,
+[class*="rounded-lg"].bg-white:hover,
+[class*="rounded-xl"].bg-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  border-color: var(--rt66-orange);
+}
+
+/* ---- Buttons ---- */
+button.bg-red-600,
+a.bg-red-600,
+[class*="bg-red-600"] {
+  background: linear-gradient(135deg, var(--rt66-orange), var(--rt66-rust)) !important;
+  transition: all 0.25s ease !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+button.bg-red-600:hover,
+a.bg-red-600:hover,
+[class*="bg-red-600"]:hover {
+  background: linear-gradient(135deg, var(--rt66-sunset), var(--rt66-orange)) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+}
+
+/* ---- Navigation / Header ---- */
+header, nav, [class*="sticky"].top-0 {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.85) !important;
+  border-bottom: 2px solid var(--rt66-orange);
+}
+
+/* ---- Hero section ---- */
+[class*="h-96"], [class*="h-80"] {
+  position: relative;
+  overflow: hidden;
+}
+
+[class*="h-96"]::after, [class*="h-80"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rt66-orange), var(--rt66-turquoise), var(--rt66-neon));
+  z-index: 1;
+}
+
+/* ---- State cards / grid items ---- */
+.grid > * {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ---- Badges / Tags ---- */
+[class*="bg-blue-100"],
+[class*="bg-green-100"],
+[class*="bg-amber-100"],
+[class*="bg-orange-100"],
+[class*="bg-indigo-100"],
+[class*="bg-red-100"] {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+}
+
+/* ---- Footer ---- */
+footer, [class*="bg-gray-100"]:last-of-type {
+  background: linear-gradient(180deg, #292524 0%, #1c1917 100%) !important;
+  color: #fafaf9 !important;
+}
+
+footer a, [class*="bg-gray-100"]:last-of-type a {
+  color: var(--rt66-sunset) !important;
+}
+
+footer a:hover, [class*="bg-gray-100"]:last-of-type a:hover {
+  color: var(--rt66-cream) !important;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rt66-orange);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rt66-rust);
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: var(--rt66-orange);
+  color: white;
+}
+
+/* ---- Image placeholders / loading ---- */
+img {
+  transition: opacity 0.4s ease;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded,
+img:not([loading]) {
+  opacity: 1;
+}
+
+/* ---- Bottom Banner Enhancement ---- */
+.bottom-banner {
+  background: linear-gradient(135deg, #1c1917, #292524) !important;
+  border-top: 2px solid var(--rt66-orange);
+}
+
+.bottom-banner-cta {
+  background: linear-gradient(135deg, var(--rt66-orange), var(--rt66-rust)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 640px) {
+  h1, .text-5xl {
+    font-size: 2rem !important;
+    line-height: 1.1 !important;
+  }
+}
+
+/* ---- Subtle page load animation ---- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > * {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* ---- Divider accent ---- */
+hr, .border-t {
+  border-color: rgba(249, 115, 22, 0.2) !important;
+}
