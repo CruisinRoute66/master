@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missouri — Route 66 Attractions | Cruisin' Route 66</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/route66-custom.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; margin: 0; background: #f8f9fa; color: #212529; }
+  h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  header .container { display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 1.8rem; background: linear-gradient(135deg, #e8590c, #ff922b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+  header nav a:hover { color: #ff922b; }
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 3rem 0; text-align: center; }
+  .hero h1 { font-size: 3rem; margin: 0 0 0.5rem; }
+  .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+  .card img { width: 100%; height: 220px; object-fit: cover; }
+  .card-body { padding: 1.25rem; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #1a1a2e; }
+  .card p { color: #495057; margin: 0 0 1rem; line-height: 1.5; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-landmark { background: #dbeafe; color: #1e40af; }
+  .badge-attraction { background: #dcfce7; color: #166534; }
+  .badge-food { background: #ffedd5; color: #9a3412; }
+  .badge-lodging { background: #e0e7ff; color: #3730a3; }
+  .badge-museum { background: #fef3c7; color: #92400e; }
+  .badge-ruins { background: #fee2e2; color: #991b1b; }
+  .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; font-size: 0.95rem; }
+  .btn-primary { background: linear-gradient(135deg, #e8590c, #d9480f); color: white; }
+  .btn-primary:hover { background: linear-gradient(135deg, #d9480f, #c2410c); transform: translateY(-1px); }
+  .btn-secondary { background: #f1f3f5; color: #495057; }
+  .btn-secondary:hover { background: #e9ecef; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem 0; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #e8590c; text-decoration: none; font-weight: 600; margin-bottom: 1rem; }
+  .back-link:hover { text-decoration: underline; }
+  .attraction-header { background: white; padding: 2rem 0; border-bottom: 1px solid #e9ecef; }
+  .attraction-header img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; }
+  .comments-section { background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .comment { border-bottom: 1px solid #e9ecef; padding: 1rem 0; }
+  .comment:last-child { border-bottom: none; }
+  .comment-author { font-weight: 600; color: #1a1a2e; }
+  .comment-date { font-size: 0.8rem; color: #868e96; }
+  .comment-text { margin-top: 0.5rem; color: #495057; line-height: 1.5; }
+  .comment-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 8px; font-family: inherit; resize: vertical; min-height: 100px; }
+  .comment-form input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 0.75rem; font-family: inherit; }
+  .photo-upload { border: 2px dashed #dee2e6; border-radius: 12px; padding: 2rem; text-align: center; margin: 1rem 0; }
+  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .photo-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+  .links-section { margin-top: 1.5rem; }
+  .link-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 0.5rem; }
+  .link-item a { color: #e8590c; text-decoration: none; word-break: break-all; }
+  .link-item a:hover { text-decoration: underline; }
+  footer { background: #1a1a2e; color: white; padding: 2rem 0; margin-top: 3rem; text-align: center; }
+  footer a { color: #ff922b; }
+  .state-card { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+  .state-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+  .state-flag { width: 80px; height: 54px; object-fit: cover; border-radius: 4px; }
+  .state-info h3 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .state-info p { margin: 0; color: #868e96; font-size: 0.9rem; }
+  .tabs { display: flex; gap: 0.5rem; border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+  .tab { padding: 0.75rem 1.25rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #868e96; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: #e8590c; border-bottom-color: #e8590c; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    header nav a { margin-left: 0.75rem; font-size: 0.85rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="../index.html" style="text-decoration:none;"><h1>Cruisin' Route 66</h1></a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../states/index.html">States</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="container">
+    <h1>Missouri</h1>
+    <p>Home to some of the most well-preserved sections of Route 66 and classic Americana.</p>
+  </div>
+</div>
+<div class="container">
+  <a href="index.html" class="back-link">← All States</a>
+  <h2 class="bebas" style="font-size:2rem; margin: 1.5rem 0 0.5rem;">29 Attractions</h2>
+  <div class="grid">
+    
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/chain_of_rocks_bridge.jpg?auto=compress&cs=tinysrgb&w=800" alt="Chain of Rocks Bridge" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Chain of Rocks Bridge</h3>
+        <p>Historic bridge with a unique 22-degree bend, now a pedestrian walkway offering stunning views of the Mississippi River.</p>
+        <a href="../attractions/missouri-chain-of-rocks-bridge-mo.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/gateway_arch.jpg?auto=compress&cs=tinysrgb&w=800" alt="Gateway Arch" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Gateway Arch</h3>
+        <p>Iconic 630-foot tall stainless steel arch symbolizing the gateway to the American West, a must-see St. Louis landmark.</p>
+        <a href="../attractions/missouri-gateway-arch.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/ted_drewes_frozen_custard.jpg?auto=compress&cs=tinysrgb&w=800" alt="Ted Drewes Frozen Custard" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Ted Drewes Frozen Custard</h3>
+        <p>St. Louis institution serving thick frozen custard "concretes" since 1929, a beloved Route 66 tradition.</p>
+        <a href="../attractions/missouri-ted-drewes-frozen-custard.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/donut_drivein.jpg?auto=compress&cs=tinysrgb&w=800" alt="Donut Drive-In" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Donut Drive-In</h3>
+        <p>Classic drive-in serving fresh donuts and coffee to Route 66 travelers since the 1950s.</p>
+        <a href="../attractions/missouri-donut-drive-in.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/victory_raceway.jpg?auto=compress&cs=tinysrgb&w=800" alt="Victory Raceway" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Victory Raceway</h3>
+        <p>Historic racing venue that has hosted motorsports events along the Route 66 corridor.</p>
+        <a href="../attractions/missouri-victory-raceway.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/crestwood_bowl.jpg?auto=compress&cs=tinysrgb&w=800" alt="Crestwood Bowl" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Crestwood Bowl</h3>
+        <p>Vintage bowling alley that has entertained Route 66 travelers and locals for decades.</p>
+        <a href="../attractions/missouri-crestwood-bowl.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/carls_drivein.jpg?auto=compress&cs=tinysrgb&w=800" alt="Carl's Drive-In" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Carl's Drive-In</h3>
+        <p>Classic drive-in restaurant serving burgers and shakes to Route 66 travelers since the 1950s.</p>
+        <a href="../attractions/missouri-carls-drive-in.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/village_bar.jpg?auto=compress&cs=tinysrgb&w=800" alt="Village Bar" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Village Bar</h3>
+        <p>Historic tavern and gathering place for Route 66 travelers, maintaining its vintage atmosphere.</p>
+        <a href="../attractions/missouri-village-bar.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/national_museum_transportation.jpg?auto=compress&cs=tinysrgb&w=800" alt="National Museum of Transportation" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>National Museum of Transportation</h3>
+        <p>Extensive collection of trains, planes, automobiles, and streetcars showcasing American transportation history.</p>
+        <a href="../attractions/missouri-national-museum-transportation.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/big_chief_roadhouse.jpg?auto=compress&cs=tinysrgb&w=800" alt="Big Chief Roadhouse" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Big Chief Roadhouse</h3>
+        <p>Historic roadhouse and restaurant serving travelers along Route 66 with classic American fare.</p>
+        <a href="../attractions/missouri-big-chief-roadhouse.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/bridgehead_inn_visitor_center.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 State Park" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 State Park</h3>
+        <p>Park includes a historic roadhouse from 1935 now serving as a visitor center with Route 66 exhibits and information.</p>
+        <a href="../attractions/missouri-route66-state-park.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/senic_overlook_park.jpg?auto=compress&cs=tinysrgb&w=800" alt="River Overlook Trail" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>River Overlook Trail</h3>
+        <p>Scenic overlook of the Missouri River with nature trails and vintage Route 66 signage.</p>
+        <a href="../attractions/missouri-river-overlook-trails.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/meramec_caverns.jpg?auto=compress&cs=tinysrgb&w=800" alt="Meramec Caverns" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Meramec Caverns</h3>
+        <p>Underground cave system heavily advertised along Route 66, featuring tours and Jesse James outlaw history.</p>
+        <a href="../attractions/missouri-meramec-caverns.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/worlds_largest_rockingchair.jpg?auto=compress&cs=tinysrgb&w=800" alt="World's Largest Rocking Chair" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>World's Largest Rocking Chair</h3>
+        <p>Giant rocking chair at the Fanning Outpost General Store, a popular photo stop for Route 66 travelers.</p>
+        <a href="../attractions/missouri-worlds-largest-rocking-chair.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/wagon_wheel_cuba.jpg?auto=compress&cs=tinysrgb&w=800" alt="Wagon Wheel Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Wagon Wheel Motel</h3>
+        <p>Historic motor court complex featuring vintage motel, café, and gas station from Route 66's golden era.</p>
+        <a href="../attractions/missouri-wagon-wheel-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/mural_city_cuba.jpg?auto=compress&cs=tinysrgb&w=800" alt="Mural City at Cuba" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Mural City at Cuba</h3>
+        <p>Collection of vibrant outdoor murals celebrating Route 66 history and culture throughout the city.</p>
+        <a href="../attractions/missouri-mural-city-cuba.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/rolla_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 Museum</h3>
+        <p>Route 66 museum housed within the local library, featuring exhibits on highway history and local heritage.</p>
+        <a href="../attractions/missouri-route66-museum-library.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/devils_elbow.jpg?auto=compress&cs=tinysrgb&w=800" alt="Devil's Elbow Bridge" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Devil's Elbow Bridge</h3>
+        <p>Historic bridge with dangerous curves that gave this section its treacherous reputation among early travelers.</p>
+        <a href="../attractions/missouri-devils-elbow-bridge.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/munger_moss_motel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Munger Moss Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Munger Moss Motel</h3>
+        <p>Iconic Route 66 motel famous for its vintage neon sign and authentic motor court experience.</p>
+        <a href="../attractions/missouri-munger-moss-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/springfield_visitor_center.jpg?auto=compress&cs=tinysrgb&w=800" alt="Springfield Visitor Center" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Springfield Visitor Center</h3>
+        <p>Comprehensive visitor center with Route 66 exhibits, maps, and information for travelers.</p>
+        <a href="../attractions/missouri-springfield-visitor-center.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/gillioz_theatre.jpg?auto=compress&cs=tinysrgb&w=800" alt="Gillioz Theatre" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Gillioz Theatre</h3>
+        <p>Beautifully restored 1926 theater showcasing live performances and maintaining its historic grandeur.</p>
+        <a href="../attractions/missouri-gillioz-theatre.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/springfield_history_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="History Museum on the Square" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>History Museum on the Square</h3>
+        <p>Local history museum located on the historic town square, featuring regional and Route 66 exhibits.</p>
+        <a href="../attractions/missouri-history-museum-square.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/abou_ben_adhem_mosque.jpg?auto=compress&cs=tinysrgb&w=800" alt="Abou Ben Adhem Shrine Mosque" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Abou Ben Adhem Shrine Mosque</h3>
+        <p>Historic Moorish-style building serving as a Shrine temple and architectural landmark.</p>
+        <a href="../attractions/missouri-abou-ben-adhem-shrine.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/springfield_auto_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Car Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 Car Museum</h3>
+        <p>Museum showcasing classic automobiles and memorabilia from the golden age of Route 66 travel.</p>
+        <a href="../attractions/missouri-route66-car-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/garys_gay_parita.jpg?auto=compress&cs=tinysrgb&w=800" alt="Gary's Gay Parita" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Gary's Gay Parita</h3>
+        <p>Restored vintage Sinclair gas station showcasing 1930s service station architecture and memorabilia.</p>
+        <a href="../attractions/missouri-garys-gay-parita.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/boots_court_motel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Boots Court Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Boots Court Motel</h3>
+        <p>Beautifully restored 1939 motor court motel representing the golden age of Route 66 travel.</p>
+        <a href="../attractions/missouri-boots-court-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/carthage_murals.jpg?auto=compress&cs=tinysrgb&w=800" alt="Downtown Carthage Murals" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Downtown Carthage Murals</h3>
+        <p>Collection of vintage motels, classic neon signage, and colorful murals celebrating Route 66 heritage.</p>
+        <a href="../attractions/missouri-downtown-carthage-murals.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/route66_drivein_theatre.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Drive-In Theatre" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Route 66 Drive-In Theatre</h3>
+        <p>Classic drive-in movie theater offering outdoor cinema experience under the stars.</p>
+        <a href="../attractions/missouri-route66-drive-in-theatre.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/missouri/mural_park_joplin.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Mural Park" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Route 66 Mural Park</h3>
+        <p>Dedicated park featuring large-scale murals depicting Route 66 history and local culture.</p>
+        <a href="../attractions/missouri-route66-mural-park-joplin.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p>© 2026 Cruisin' Route 66 — America's Mother Road</p>
+    <p style="margin-top:0.5rem;"><a href="../index.html">Back to Main Site</a></p>
+  </div>
+</footer>
+</body>
+</html>

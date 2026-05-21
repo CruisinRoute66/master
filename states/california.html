@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>California — Route 66 Attractions | Cruisin' Route 66</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/route66-custom.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; margin: 0; background: #f8f9fa; color: #212529; }
+  h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  header .container { display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 1.8rem; background: linear-gradient(135deg, #e8590c, #ff922b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+  header nav a:hover { color: #ff922b; }
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 3rem 0; text-align: center; }
+  .hero h1 { font-size: 3rem; margin: 0 0 0.5rem; }
+  .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+  .card img { width: 100%; height: 220px; object-fit: cover; }
+  .card-body { padding: 1.25rem; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #1a1a2e; }
+  .card p { color: #495057; margin: 0 0 1rem; line-height: 1.5; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-landmark { background: #dbeafe; color: #1e40af; }
+  .badge-attraction { background: #dcfce7; color: #166534; }
+  .badge-food { background: #ffedd5; color: #9a3412; }
+  .badge-lodging { background: #e0e7ff; color: #3730a3; }
+  .badge-museum { background: #fef3c7; color: #92400e; }
+  .badge-ruins { background: #fee2e2; color: #991b1b; }
+  .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; font-size: 0.95rem; }
+  .btn-primary { background: linear-gradient(135deg, #e8590c, #d9480f); color: white; }
+  .btn-primary:hover { background: linear-gradient(135deg, #d9480f, #c2410c); transform: translateY(-1px); }
+  .btn-secondary { background: #f1f3f5; color: #495057; }
+  .btn-secondary:hover { background: #e9ecef; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem 0; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #e8590c; text-decoration: none; font-weight: 600; margin-bottom: 1rem; }
+  .back-link:hover { text-decoration: underline; }
+  .attraction-header { background: white; padding: 2rem 0; border-bottom: 1px solid #e9ecef; }
+  .attraction-header img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; }
+  .comments-section { background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .comment { border-bottom: 1px solid #e9ecef; padding: 1rem 0; }
+  .comment:last-child { border-bottom: none; }
+  .comment-author { font-weight: 600; color: #1a1a2e; }
+  .comment-date { font-size: 0.8rem; color: #868e96; }
+  .comment-text { margin-top: 0.5rem; color: #495057; line-height: 1.5; }
+  .comment-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 8px; font-family: inherit; resize: vertical; min-height: 100px; }
+  .comment-form input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 0.75rem; font-family: inherit; }
+  .photo-upload { border: 2px dashed #dee2e6; border-radius: 12px; padding: 2rem; text-align: center; margin: 1rem 0; }
+  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .photo-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+  .links-section { margin-top: 1.5rem; }
+  .link-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 0.5rem; }
+  .link-item a { color: #e8590c; text-decoration: none; word-break: break-all; }
+  .link-item a:hover { text-decoration: underline; }
+  footer { background: #1a1a2e; color: white; padding: 2rem 0; margin-top: 3rem; text-align: center; }
+  footer a { color: #ff922b; }
+  .state-card { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+  .state-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+  .state-flag { width: 80px; height: 54px; object-fit: cover; border-radius: 4px; }
+  .state-info h3 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .state-info p { margin: 0; color: #868e96; font-size: 0.9rem; }
+  .tabs { display: flex; gap: 0.5rem; border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+  .tab { padding: 0.75rem 1.25rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #868e96; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: #e8590c; border-bottom-color: #e8590c; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    header nav a { margin-left: 0.75rem; font-size: 0.85rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="../index.html" style="text-decoration:none;"><h1>Cruisin' Route 66</h1></a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../states/index.html">States</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="container">
+    <h1>California</h1>
+    <p>The final destination where Route 66 ends at the Pacific Ocean in Santa Monica.</p>
+  </div>
+</div>
+<div class="container">
+  <a href="index.html" class="back-link">← All States</a>
+  <h2 class="bebas" style="font-size:2rem; margin: 1.5rem 0 0.5rem;">32 Attractions</h2>
+  <div class="grid">
+    
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/needles_wagon_sign.jpg?auto=compress&cs=tinysrgb&w=800" alt="Welcome Wagon Sign" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Welcome Wagon Sign</h3>
+        <p>This sign marks the welcoming point into California along Route 66 and is considered one of the most iconic gateways on the Mother Road.</p>
+        <a href="../attractions/california-welcome-wagon-sign.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/route66_motel_sign.jpg?auto=compress&cs=tinysrgb&w=800" alt="66 Motel Sign" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>66 Motel Sign</h3>
+        <p>Classic neon landmark representing the golden age of Route 66 motor courts and roadside hospitality.</p>
+        <a href="../attractions/california-66-motel-sign-needles.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/needles_regional_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Needles Regional Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Needles Regional Museum</h3>
+        <p>Route 66 and railroad exhibits chronicling the town's role as a desert transportation hub.</p>
+        <a href="../attractions/california-needles-regional-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/el_garces.jpg?auto=compress&cs=tinysrgb&w=800" alt="El Garces Train Depot" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>El Garces Train Depot</h3>
+        <p>Restored Harvey House building showcasing the elegant era of railroad travel and hospitality.</p>
+        <a href="../attractions/california-el-garces-train-depot.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/goffs_schoolhouse.jpg?auto=compress&cs=tinysrgb&w=800" alt="Goffs Schoolhouse Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Goffs Schoolhouse Museum</h3>
+        <p>Restored 1914 schoolhouse with mining and Route 66 exhibits showcasing Mojave Desert history.</p>
+        <a href="../attractions/california-goffs-schoolhouse-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/fenner_ca.jpg?auto=compress&cs=tinysrgb&w=800" alt="Fenner Ghost Town" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Fenner Ghost Town</h3>
+        <p>Abandoned cafes, gas stations, and motels from Route 66's heyday, evoking the romance of the open road.</p>
+        <a href="../attractions/california-fenner-ghost-town.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/amboy_crater.jpg?auto=compress&cs=tinysrgb&w=800" alt="Amboy Crater" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Amboy Crater</h3>
+        <p>Extinct volcanic cinder cone offering hiking and spectacular photo opportunities in the Mojave Desert.</p>
+        <a href="../attractions/california-amboy-crater.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/roys_motel_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Roy's Motel and Café" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Roy's Motel and Café</h3>
+        <p>One of the most iconic signs and mid-century modern buildings on the entire route, a true Route 66 legend.</p>
+        <a href="../attractions/california-roys-motel-cafe.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/ludlow_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Ludlow Café & Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Ludlow Café & Motel</h3>
+        <p>Vintage highway stop representing the classic Route 66 roadside experience in the Mojave Desert.</p>
+        <a href="../attractions/california-ludlow-cafe-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/ludlow_gas_station.jpg?auto=compress&cs=tinysrgb&w=800" alt="Abandoned Gas Stations" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Abandoned Gas Stations</h3>
+        <p>Route 66 decay and photography gold, showcasing the abandoned infrastructure of America's Mother Road.</p>
+        <a href="../attractions/california-ludlow-gas-stations.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/bagdad_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Bagdad Café" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Bagdad Café</h3>
+        <p>Filming location of the 1987 cult movie; still serving Route 66 travelers with desert hospitality.</p>
+        <a href="../attractions/california-bagdad-cafe.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/motherroad_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Mother Road Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Mother Road Museum</h3>
+        <p>Located in the historic Casa del Desierto Harvey House, comprehensive Route 66 exhibits and memorabilia.</p>
+        <a href="../attractions/california-mother-road-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/western_america_rr_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Western America Railroad Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Western America Railroad Museum</h3>
+        <p>Next to the Route 66 museum, showcasing the railroad heritage that preceded the automobile age.</p>
+        <a href="../attractions/california-western-america-railroad-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/waterman_junction_barstow.jpg?auto=compress&cs=tinysrgb&w=800" alt="Barstow Murals" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Barstow Murals</h3>
+        <p>Over 20 murals depicting the town's history, Route 66 heritage, and desert culture.</p>
+        <a href="../attractions/california-barstow-murals.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/route66_motel_barstow.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Route 66 Motel</h3>
+        <p>Classic neon signage representing the golden age of Route 66 motor courts.</p>
+        <a href="../attractions/california-route66-motel-barstow.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/bottle_tree_ranch.jpg?auto=compress&cs=tinysrgb&w=800" alt="Elmer's Bottle Tree Ranch" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Elmer's Bottle Tree Ranch</h3>
+        <p>Folk art garden of welded trees with colorful glass bottles, a whimsical roadside attraction.</p>
+        <a href="../attractions/california-elmers-bottle-tree-ranch.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/antique_station.jpg?auto=compress&cs=tinysrgb&w=800" alt="Antique Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Antique Station</h3>
+        <p>Roadside antique and junkyard oddities offering treasures and curiosities from bygone eras.</p>
+        <a href="../attractions/california-antique-station-oro-grande.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/ca_route66_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="California Route 66 Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>California Route 66 Museum</h3>
+        <p>Interactive and photo-friendly museum celebrating California's Route 66 heritage and culture.</p>
+        <a href="../attractions/california-california-route66-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/cajon_pass.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cajon Pass Overlook" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Cajon Pass Overlook</h3>
+        <p>Dramatic landscape between desert and mountains, showcasing California's diverse geography.</p>
+        <a href="../attractions/california-cajon-pass-overlook.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/mcdonalds_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Original McDonald's Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Original McDonald's Museum</h3>
+        <p>Built on the site of the first McDonald's (1940), showcasing the birth of fast food culture.</p>
+        <a href="../attractions/california-original-mcdonalds-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/wigwam_motel_no7.jpg?auto=compress&cs=tinysrgb&w=800" alt="Wigwam Motel #7" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Wigwam Motel #7</h3>
+        <p>Another "sleep in a teepee" motor court, one of the last surviving wigwam motels on Route 66.</p>
+        <a href="../attractions/california-wigwam-motel-7.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/theatre_preforming_arts.jpg?auto=compress&cs=tinysrgb&w=800" alt="CA Theatre of Performing Arts" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>CA Theatre of Performing Arts</h3>
+        <p>Built in 1928, showcasing the entertainment culture that flourished along Route 66.</p>
+        <a href="../attractions/california-ca-theatre-performing-arts.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/rialto_historical_society.jpg?auto=compress&cs=tinysrgb&w=800" alt="Rialto Historical Society Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Rialto Historical Society Museum</h3>
+        <p>Route 66 items included in exhibits showcasing local history and highway heritage.</p>
+        <a href="../attractions/california-rialto-historical-society-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/cucamonga_service_center.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cucamonga Service Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Cucamonga Service Station</h3>
+        <p>Fully restored 1915 gas station with a museum, one of the oldest surviving stations in California.</p>
+        <a href="../attractions/california-cucamonga-service-station.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/route66_trailhead.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Trailhead Monument" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Route 66 Trailhead Monument</h3>
+        <p>Starting point for Route 66 trail in the city, marking the historic highway's path through California.</p>
+        <a href="../attractions/california-route66-trailhead-monument.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/lemon_packing_house.jpg?auto=compress&cs=tinysrgb&w=800" alt="Lemon Packing House" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Lemon Packing House</h3>
+        <p>Historic citrus industry building representing California's agricultural heritage along Route 66.</p>
+        <a href="../attractions/california-lemon-packing-house.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/golden_spur.jpg?auto=compress&cs=tinysrgb&w=800" alt="The Hat" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>The Hat</h3>
+        <p>A classic SoCal fast-food deli chain, widely known for its “World Famous Pastrami” sandwiches and chili cheese fries.</p>
+        <a href="../attractions/california-the-hat.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/aztec_hotel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Aztec Hotel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Aztec Hotel</h3>
+        <p>Mayan Revival architecture showcasing the exotic themes popular in 1920s roadside design.</p>
+        <a href="../attractions/california-aztec-hotel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/colorado_street_bridge.jpg?auto=compress&cs=tinysrgb&w=800" alt="Colorado Street Bridge" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Colorado Street Bridge</h3>
+        <p>Iconic Beaux-Arts arch bridge (1913) representing the engineering marvels of the early automobile age.</p>
+        <a href="../attractions/california-colorado-street-bridge.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/arroyo_seco_parkway.jpg?auto=compress&cs=tinysrgb&w=800" alt="Arroyo Seco Parkway" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Arroyo Seco Parkway</h3>
+        <p>First freeway in the U.S., aligns with old Route 66, representing the evolution of American highways.</p>
+        <a href="../attractions/california-arroyo-seco-parkway.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/broadway_theater_district.jpg?auto=compress&cs=tinysrgb&w=800" alt="Broadway Theater District" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Broadway Theater District</h3>
+        <p>Vintage neon marquees and buildings representing the golden age of entertainment along Route 66.</p>
+        <a href="../attractions/california-broadway-theater-district.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/california/santa_monica_pier.jpg?auto=compress&cs=tinysrgb&w=800" alt="Santa Monica Pier" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Santa Monica Pier</h3>
+        <p>Iconic oceanfront landmark where Route 66 officially ends, featuring amusement rides and Pacific Ocean views.</p>
+        <a href="../attractions/california-santa-monica-pier.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p>© 2026 Cruisin' Route 66 — America's Mother Road</p>
+    <p style="margin-top:0.5rem;"><a href="../index.html">Back to Main Site</a></p>
+  </div>
+</footer>
+</body>
+</html>

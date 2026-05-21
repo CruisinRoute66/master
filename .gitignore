@@ -1,3 +1,4 @@
 files/*
 flags/*
 states/*
+!states/*.html

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Mexico — Route 66 Attractions | Cruisin' Route 66</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/route66-custom.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; margin: 0; background: #f8f9fa; color: #212529; }
+  h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  header .container { display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 1.8rem; background: linear-gradient(135deg, #e8590c, #ff922b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+  header nav a:hover { color: #ff922b; }
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 3rem 0; text-align: center; }
+  .hero h1 { font-size: 3rem; margin: 0 0 0.5rem; }
+  .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+  .card img { width: 100%; height: 220px; object-fit: cover; }
+  .card-body { padding: 1.25rem; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #1a1a2e; }
+  .card p { color: #495057; margin: 0 0 1rem; line-height: 1.5; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-landmark { background: #dbeafe; color: #1e40af; }
+  .badge-attraction { background: #dcfce7; color: #166534; }
+  .badge-food { background: #ffedd5; color: #9a3412; }
+  .badge-lodging { background: #e0e7ff; color: #3730a3; }
+  .badge-museum { background: #fef3c7; color: #92400e; }
+  .badge-ruins { background: #fee2e2; color: #991b1b; }
+  .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; font-size: 0.95rem; }
+  .btn-primary { background: linear-gradient(135deg, #e8590c, #d9480f); color: white; }
+  .btn-primary:hover { background: linear-gradient(135deg, #d9480f, #c2410c); transform: translateY(-1px); }
+  .btn-secondary { background: #f1f3f5; color: #495057; }
+  .btn-secondary:hover { background: #e9ecef; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem 0; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #e8590c; text-decoration: none; font-weight: 600; margin-bottom: 1rem; }
+  .back-link:hover { text-decoration: underline; }
+  .attraction-header { background: white; padding: 2rem 0; border-bottom: 1px solid #e9ecef; }
+  .attraction-header img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; }
+  .comments-section { background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .comment { border-bottom: 1px solid #e9ecef; padding: 1rem 0; }
+  .comment:last-child { border-bottom: none; }
+  .comment-author { font-weight: 600; color: #1a1a2e; }
+  .comment-date { font-size: 0.8rem; color: #868e96; }
+  .comment-text { margin-top: 0.5rem; color: #495057; line-height: 1.5; }
+  .comment-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 8px; font-family: inherit; resize: vertical; min-height: 100px; }
+  .comment-form input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 0.75rem; font-family: inherit; }
+  .photo-upload { border: 2px dashed #dee2e6; border-radius: 12px; padding: 2rem; text-align: center; margin: 1rem 0; }
+  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .photo-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+  .links-section { margin-top: 1.5rem; }
+  .link-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 0.5rem; }
+  .link-item a { color: #e8590c; text-decoration: none; word-break: break-all; }
+  .link-item a:hover { text-decoration: underline; }
+  footer { background: #1a1a2e; color: white; padding: 2rem 0; margin-top: 3rem; text-align: center; }
+  footer a { color: #ff922b; }
+  .state-card { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+  .state-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+  .state-flag { width: 80px; height: 54px; object-fit: cover; border-radius: 4px; }
+  .state-info h3 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .state-info p { margin: 0; color: #868e96; font-size: 0.9rem; }
+  .tabs { display: flex; gap: 0.5rem; border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+  .tab { padding: 0.75rem 1.25rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #868e96; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: #e8590c; border-bottom-color: #e8590c; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    header nav a { margin-left: 0.75rem; font-size: 0.85rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="../index.html" style="text-decoration:none;"><h1>Cruisin' Route 66</h1></a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../states/index.html">States</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="container">
+    <h1>New Mexico</h1>
+    <p>The Land of Enchantment offers stunning landscapes and rich Native American culture.</p>
+  </div>
+</div>
+<div class="container">
+  <a href="index.html" class="back-link">← All States</a>
+  <h2 class="bebas" style="font-size:2rem; margin: 1.5rem 0 0.5rem;">36 Attractions</h2>
+  <div class="grid">
+    
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/tepee_curios.jpg?auto=compress&cs=tinysrgb&w=800" alt="Tee Pee Curios" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Tee Pee Curios</h3>
+        <p>Neon-lit gift shop with original pueblo-style architecture, a classic Route 66 trading post experience.</p>
+        <a href="../attractions/new-mexico-tee-pee-curios.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/blue_swallow_motel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Blue Swallow Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Blue Swallow Motel</h3>
+        <p>One of Route 66's most iconic and continuously operating motels since 1939, featuring vintage neon and authentic motor court charm.</p>
+        <a href="../attractions/new-mexico-blue-swallow-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/motel_safari.jpg?auto=compress&cs=tinysrgb&w=800" alt="Motel Safari" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>Motel Safari</h3>
+        <p>Restored vintage 1960s motor court with retro rooms, offering an authentic mid-century Route 66 lodging experience.</p>
+        <a href="../attractions/new-mexico-motel-safari.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/route_66_monument.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Monument" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Route 66 Monument</h3>
+        <p>Dozens of public murals across town celebrating Route 66 history, Western heritage, and local culture.</p>
+        <a href="../attractions/new-mexico-route66-monument.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/mesalands_dino_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Mesalands Dinosaur Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Mesalands Dinosaur Museum</h3>
+        <p>Fossils, art, and paleontology exhibits showcasing the prehistoric heritage of the American Southwest.</p>
+        <a href="../attractions/new-mexico-mesalands-dinosaur-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/nm_route66_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="New Mexico Route 66 Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>New Mexico Route 66 Museum</h3>
+        <p>Small but focused display inside the Convention Center chronicling Route 66's impact on New Mexico.</p>
+        <a href="../attractions/new-mexico-new-mexico-route66-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/blue_hole.jpg?auto=compress&cs=tinysrgb&w=800" alt="Blue Hole" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Blue Hole</h3>
+        <p>80-foot deep spring-fed swimming hole with crystal clear water, a natural artesian spring and popular scuba diving destination.</p>
+        <a href="../attractions/new-mexico-blue-hole.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/route66_auto_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Auto Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 Auto Museum</h3>
+        <p>Classic cars and Route 66 memorabilia showcasing the golden age of American automobile travel.</p>
+        <a href="../attractions/new-mexico-route66-auto-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/comet2_drivein.jpg?auto=compress&cs=tinysrgb&w=800" alt="Comet II Restaurant" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Comet II Restaurant</h3>
+        <p>Family-owned diner with New Mexico-style comfort food, serving travelers with authentic regional cuisine.</p>
+        <a href="../attractions/new-mexico-comet-ii-restaurant.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/sliver_moon_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Silver Moon Café" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Silver Moon Café</h3>
+        <p>Classic eatery along the Mother Road serving traditional American fare with Southwestern flair.</p>
+        <a href="../attractions/new-mexico-silver-moon-cafe.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/vaughn_whiting_bros.jpg?auto=compress&cs=tinysrgb&w=800" alt="Whiting Brothers Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Whiting Brothers Station</h3>
+        <p>Faded signage from a forgotten 66 era, representing the abandoned roadside infrastructure along the highway.</p>
+        <a href="../attractions/new-mexico-whiting-brothers-vaughn.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/vaughn_vintage_motel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Vintage Motels" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Vintage Motels</h3>
+        <p>Along the old alignment through town, showcasing mid-century roadside architecture and signage.</p>
+        <a href="../attractions/new-mexico-vintage-motels-vaughn.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/clines_corners.jpg?auto=compress&cs=tinysrgb&w=800" alt="Clines Corners Travel Center" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Clines Corners Travel Center</h3>
+        <p>Massive souvenir stop dating back to 1934, a legendary Route 66 trading post and tourist destination.</p>
+        <a href="../attractions/new-mexico-clines-corners-travel-center.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/old_windmill.jpg?auto=compress&cs=tinysrgb&w=800" alt="Old Windmill" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Old Windmill</h3>
+        <p>Classic roadside photo ops with vintage signage and Western-themed displays.</p>
+        <a href="../attractions/new-mexico-old-windmill.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/el_comedor.jpg?auto=compress&cs=tinysrgb&w=800" alt="El Comedor de Anayas" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>El Comedor de Anayas</h3>
+        <p>Family-run restaurant on old Route 66 serving authentic New Mexican cuisine with traditional recipes.</p>
+        <a href="../attractions/new-mexico-el-comedor-de-anayas.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/moriarty_whiting_bros.jpg?auto=compress&cs=tinysrgb&w=800" alt="Whiting Brothers Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Whiting Brothers Station</h3>
+        <p>Another ghostly fuel stop along the highway, representing the abandoned infrastructure of Route 66.</p>
+        <a href="../attractions/new-mexico-whiting-brothers-moriarty.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/moriarty_route66_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Vintage Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 Vintage Museum</h3>
+        <p>Displays historic photos and signage chronicling the highway's golden age and local impact.</p>
+        <a href="../attractions/new-mexico-route66-museum-moriarty.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/wildlife_west_nature_park.jpg?auto=compress&cs=tinysrgb&w=800" alt="Wildlife West Nature Park" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Wildlife West Nature Park</h3>
+        <p>Nearby animal preserve off old 66 featuring native New Mexican wildlife and educational programs.</p>
+        <a href="../attractions/new-mexico-wildlife-west-nature-park.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/musical_road.jpg?auto=compress&cs=tinysrgb&w=800" alt="Musical Road" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Musical Road</h3>
+        <p>A stretch that plays "America the Beautiful" when driven over at 45 mph, a unique roadway engineering marvel.</p>
+        <a href="../attractions/new-mexico-musical-road.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/historic_nob_hill.jpg?auto=compress&cs=tinysrgb&w=800" alt="Historic Nob Hill District" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Historic Nob Hill District</h3>
+        <p>Neon signs, diners, and shops on Central Ave (Route 66), the heart of Albuquerque's Route 66 heritage.</p>
+        <a href="../attractions/new-mexico-historic-nob-hill-district.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/route66_diner_abq.jpg?auto=compress&cs=tinysrgb&w=800" alt="66 Diner" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>66 Diner</h3>
+        <p>1950s-style restaurant packed with nostalgia, serving classic American fare in an authentic retro setting.</p>
+        <a href="../attractions/new-mexico-66-diner.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/kimo_theatre.jpg?auto=compress&cs=tinysrgb&w=800" alt="KiMo Theatre" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>KiMo Theatre</h3>
+        <p>Pueblo Deco-style theater from 1927, a stunning example of Southwestern architectural design and cultural venue.</p>
+        <a href="../attractions/new-mexico-kimo-theatre.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/el_vado_motel.jpg?auto=compress&cs=tinysrgb&w=800" alt="El Vado Motel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>El Vado Motel</h3>
+        <p>Recently restored 1937-era motor court showcasing the golden age of Route 66 lodging with modern amenities.</p>
+        <a href="../attractions/new-mexico-el-vado-motel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/route66_arch_abq.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Arch" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Route 66 Arch</h3>
+        <p>Steel arch across Central Ave marking 66 downtown, a modern tribute to the historic highway.</p>
+        <a href="../attractions/new-mexico-route66-arch-albuquerque.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/old_town_abq.jpg?auto=compress&cs=tinysrgb&w=800" alt="Old Town Albuquerque" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Old Town Albuquerque</h3>
+        <p>Pre-dates Route 66 but worth the detour for its historic plaza, adobe architecture, and cultural attractions.</p>
+        <a href="../attractions/new-mexico-old-town-albuquerque.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/laguna_mission_church.jpg?auto=compress&cs=tinysrgb&w=800" alt="Laguna Mission Church" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Laguna Mission Church</h3>
+        <p>Historic adobe church from 1699, representing centuries of Native American and Spanish colonial heritage.</p>
+        <a href="../attractions/new-mexico-laguna-mission-church.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/acoma_pueblo.jpg?auto=compress&cs=tinysrgb&w=800" alt="Acoma Pueblo "Sky City"" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Acoma Pueblo "Sky City"</h3>
+        <p>One of the oldest continuously inhabited communities in North America. Tours available to this mesa-top village.</p>
+        <a href="../attractions/new-mexico-acoma-pueblo-sky-city.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/owl_rock.jpg?auto=compress&cs=tinysrgb&w=800" alt="Owl Rock" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Owl Rock</h3>
+        <p>A 20-foot tall sandstone formation located along the Old Route 66 known for its unique shape resembling an owl.</p>
+        <a href="../attractions/new-mexico-owl-rock.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/route66_archway_grants.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Archway Sign" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Route 66 Archway Sign</h3>
+        <p>Welcomes you into town with classic Route 66 styling and Western hospitality.</p>
+        <a href="../attractions/new-mexico-route66-archway-grants.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/nm_mining_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="New Mexico Mining Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>New Mexico Mining Museum</h3>
+        <p>Underground uranium mining tour showcasing the area's atomic age history and mining heritage.</p>
+        <a href="../attractions/new-mexico-new-mexico-mining-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/el_malpais_monument.jpg?auto=compress&cs=tinysrgb&w=800" alt="El Malpais National Monument" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>El Malpais National Monument</h3>
+        <p>Scenic detour with volcanic formations, lava tubes, and dramatic landscapes of the American Southwest.</p>
+        <a href="../attractions/new-mexico-el-malpais-national-monument.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/sanfidel_whiting_bros.jpg?auto=compress&cs=tinysrgb&w=800" alt="Whiting Brothers Sign" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Whiting Brothers Sign</h3>
+        <p>Photo-worthy vintage signage representing the abandoned roadside infrastructure of Route 66.</p>
+        <a href="../attractions/new-mexico-whiting-bros-sign-sanfidel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/continental_divide.jpg?auto=compress&cs=tinysrgb&w=800" alt="Continental Divide Elevation Marker" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Continental Divide Elevation Marker</h3>
+        <p>Elevation 7,275 feet. Water flows East and West from this point - marking the geographic divide of North America.</p>
+        <a href="../attractions/new-mexico-continental-divide-elevation-marker.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/el_rancho_hotel.jpg?auto=compress&cs=tinysrgb&w=800" alt="El Rancho Hotel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-lodging">lodging</span>
+        <h3>El Rancho Hotel</h3>
+        <p>Historic hotel where Western movie stars stayed, featuring vintage Hollywood glamour and Southwestern hospitality.</p>
+        <a href="../attractions/new-mexico-el-rancho-hotel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/rex_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Rex Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Rex Museum</h3>
+        <p>Route 66 and Gallup history showcasing the town's role as a trading center and railroad hub.</p>
+        <a href="../attractions/new-mexico-rex-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/newmexico/gallup_mural.jpg?auto=compress&cs=tinysrgb&w=800" alt="Downtown Murals" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Downtown Murals</h3>
+        <p>Depict Gallup's Navajo and Route 66 heritage with colorful public art celebrating local culture.</p>
+        <a href="../attractions/new-mexico-downtown-murals-gallup.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p>© 2026 Cruisin' Route 66 — America's Mother Road</p>
+    <p style="margin-top:0.5rem;"><a href="../index.html">Back to Main Site</a></p>
+  </div>
+</footer>
+</body>
+</html>

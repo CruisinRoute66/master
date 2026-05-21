@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Illinois — Route 66 Attractions | Cruisin' Route 66</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/route66-custom.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; margin: 0; background: #f8f9fa; color: #212529; }
+  h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  header .container { display: flex; justify-content: space-between; align-items: center; }
+  header h1 { margin: 0; font-size: 1.8rem; background: linear-gradient(135deg, #e8590c, #ff922b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header nav a { color: #fff; text-decoration: none; margin-left: 1.5rem; font-weight: 500; transition: color 0.2s; }
+  header nav a:hover { color: #ff922b; }
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 3rem 0; text-align: center; }
+  .hero h1 { font-size: 3rem; margin: 0 0 0.5rem; }
+  .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+  .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+  .card img { width: 100%; height: 220px; object-fit: cover; }
+  .card-body { padding: 1.25rem; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.3rem; color: #1a1a2e; }
+  .card p { color: #495057; margin: 0 0 1rem; line-height: 1.5; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+  .badge-landmark { background: #dbeafe; color: #1e40af; }
+  .badge-attraction { background: #dcfce7; color: #166534; }
+  .badge-food { background: #ffedd5; color: #9a3412; }
+  .badge-lodging { background: #e0e7ff; color: #3730a3; }
+  .badge-museum { background: #fef3c7; color: #92400e; }
+  .badge-ruins { background: #fee2e2; color: #991b1b; }
+  .btn { display: inline-block; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; font-size: 0.95rem; }
+  .btn-primary { background: linear-gradient(135deg, #e8590c, #d9480f); color: white; }
+  .btn-primary:hover { background: linear-gradient(135deg, #d9480f, #c2410c); transform: translateY(-1px); }
+  .btn-secondary { background: #f1f3f5; color: #495057; }
+  .btn-secondary:hover { background: #e9ecef; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem 0; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: #e8590c; text-decoration: none; font-weight: 600; margin-bottom: 1rem; }
+  .back-link:hover { text-decoration: underline; }
+  .attraction-header { background: white; padding: 2rem 0; border-bottom: 1px solid #e9ecef; }
+  .attraction-header img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 1.5rem; }
+  .comments-section { background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .comment { border-bottom: 1px solid #e9ecef; padding: 1rem 0; }
+  .comment:last-child { border-bottom: none; }
+  .comment-author { font-weight: 600; color: #1a1a2e; }
+  .comment-date { font-size: 0.8rem; color: #868e96; }
+  .comment-text { margin-top: 0.5rem; color: #495057; line-height: 1.5; }
+  .comment-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #dee2e6; border-radius: 8px; font-family: inherit; resize: vertical; min-height: 100px; }
+  .comment-form input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 0.75rem; font-family: inherit; }
+  .photo-upload { border: 2px dashed #dee2e6; border-radius: 12px; padding: 2rem; text-align: center; margin: 1rem 0; }
+  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .photo-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+  .links-section { margin-top: 1.5rem; }
+  .link-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 6px; margin-bottom: 0.5rem; }
+  .link-item a { color: #e8590c; text-decoration: none; word-break: break-all; }
+  .link-item a:hover { text-decoration: underline; }
+  footer { background: #1a1a2e; color: white; padding: 2rem 0; margin-top: 3rem; text-align: center; }
+  footer a { color: #ff922b; }
+  .state-card { display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+  .state-card:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+  .state-flag { width: 80px; height: 54px; object-fit: cover; border-radius: 4px; }
+  .state-info h3 { margin: 0 0 0.25rem; font-size: 1.4rem; }
+  .state-info p { margin: 0; color: #868e96; font-size: 0.9rem; }
+  .tabs { display: flex; gap: 0.5rem; border-bottom: 2px solid #e9ecef; margin-bottom: 1.5rem; }
+  .tab { padding: 0.75rem 1.25rem; background: none; border: none; cursor: pointer; font-weight: 600; color: #868e96; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: #e8590c; border-bottom-color: #e8590c; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    header nav a { margin-left: 0.75rem; font-size: 0.85rem; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="../index.html" style="text-decoration:none;"><h1>Cruisin' Route 66</h1></a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../states/index.html">States</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="container">
+    <h1>Illinois</h1>
+    <p>The starting point of the legendary Route 66, where the journey begins in the heart of Chicago.</p>
+  </div>
+</div>
+<div class="container">
+  <a href="index.html" class="back-link">← All States</a>
+  <h2 class="bebas" style="font-size:2rem; margin: 1.5rem 0 0.5rem;">58 Attractions</h2>
+  <div class="grid">
+    
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/route66_begin.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Begin Sign" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Route 66 Begin Sign</h3>
+        <p>The iconic "Begin Route 66" sign at Adams Street and Michigan Avenue, marking the official start of the Mother Road.</p>
+        <a href="../attractions/illinois-begin-route66-sign.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/art_institute_lion.jpg?auto=compress&cs=tinysrgb&w=800" alt="Art Institute Lions" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Art Institute Lions</h3>
+        <p>Iconic bronze lions guarding the Art Institute of Chicago, a perfect photo spot near the start of Route 66.</p>
+        <a href="../attractions/illinois-art-institute-lions.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/lou_mitchells_chicago.jpg?auto=compress&cs=tinysrgb&w=800" alt="Lou Mitchell's Restaurant" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Lou Mitchell's Restaurant</h3>
+        <p>1923 diner famous with Route 66 travelers, serving complimentary donuts and milk duds to start your journey.</p>
+        <a href="../attractions/illinois-lou-mitchell-restaurant.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/berghoff_chicago.jpg?auto=compress&cs=tinysrgb&w=800" alt="Berghoff Restaurant" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Berghoff Restaurant</h3>
+        <p>Historic German eatery on original Route 66, serving traditional cuisine since 1898.</p>
+        <a href="../attractions/illinois-berghoff-restaurant.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/sears_tower.jpg?auto=compress&cs=tinysrgb&w=800" alt="Willis Tower" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Willis Tower</h3>
+        <p>View from the top of Chicago at one of the tallest buildings in the Western Hemisphere.</p>
+        <a href="../attractions/illinois-willis-tower.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/henrys_driveIn.jpg?auto=compress&cs=tinysrgb&w=800" alt="Henry's Drive-In" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Henry's Drive-In</h3>
+        <p>Giant hot dog with mustard statue on top, a quirky roadside attraction that has delighted travelers for decades.</p>
+        <a href="../attractions/illinois-henrys-drive-in.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/dell_rheas_chicken.jpg?auto=compress&cs=tinysrgb&w=800" alt="Dell Rhea's Chicken Basket" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Dell Rhea's Chicken Basket</h3>
+        <p>1946 fried chicken restaurant, a Route 66 icon serving travelers in Willowbrook for over 75 years.</p>
+        <a href="../attractions/illinois-dell-rheas-chicken-basket.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/welcome_center_joliet.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Welcome Center" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Route 66 Welcome Center</h3>
+        <p>Great starting point with exhibits, maps, and information about Route 66 history and attractions.</p>
+        <a href="../attractions/illinois-route66-welcome-center-joliet.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/rialto_square_theatre.jpg?auto=compress&cs=tinysrgb&w=800" alt="Rialto Square Theatre" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Rialto Square Theatre</h3>
+        <p>1920s opulent movie palace known as the "Jewel of Joliet," featuring stunning architecture and live performances.</p>
+        <a href="../attractions/illinois-rialto-square-theatre.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/rich_and_creamy.jpg?auto=compress&cs=tinysrgb&w=800" alt="Rich & Creamy Ice Cream" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Rich & Creamy Ice Cream</h3>
+        <p>Retro ice cream stand with Blues Brothers statues on the roof, celebrating Joliet's movie fame.</p>
+        <a href="../attractions/illinois-rich-creamy-ice-cream.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/old_joliet_prison.jpg?auto=compress&cs=tinysrgb&w=800" alt="Old Joliet Prison" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Old Joliet Prison</h3>
+        <p>Historic prison featured in The Blues Brothers and other films, offering guided tours of this imposing limestone fortress.</p>
+        <a href="../attractions/illinois-old-joliet-prison.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/gemini_giant_launching_pad.jpg?auto=compress&cs=tinysrgb&w=800" alt="Gemini Giant" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Gemini Giant</h3>
+        <p>Fiberglass "Muffler Man" astronaut at the Launching Pad, one of the most photographed Route 66 attractions.</p>
+        <a href="../attractions/illinois-gemini-giant.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/midewin_tallgrass_prairie.jpg?auto=compress&cs=tinysrgb&w=800" alt="Midewin Tallgrass Prairie" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Midewin Tallgrass Prairie</h3>
+        <p>Native prairie restoration with bison herd, showcasing Illinois' natural heritage along Route 66.</p>
+        <a href="../attractions/illinois-midewin-tallgrass-prairie.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/polka_dot_drivein.jpg?auto=compress&cs=tinysrgb&w=800" alt="Polk-a-Dot Drive-In" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Polk-a-Dot Drive-In</h3>
+        <p>1950s-themed diner with Elvis & Betty Boop statues, serving classic American fare with vintage flair.</p>
+        <a href="../attractions/illinois-polk-a-dot-drive-in.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/crazy_80s.jpg?auto=compress&cs=tinysrgb&w=800" alt="Crazy 80's Car Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Crazy 80's Car Museum</h3>
+        <p>Crazy 80's is a hidden gem that transports visitors back to the late 1970s and 1980s, showcasing everyday cars from the Malaise Era, no musc...</p>
+        <a href="../attractions/illinois-crazy-80s-car-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/amblers_texaco_station.jpg?auto=compress&cs=tinysrgb&w=800" alt="Ambler's Texaco Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Ambler's Texaco Station</h3>
+        <p>Restored 1930s gas station, now a visitor center showcasing the golden age of automobile travel.</p>
+        <a href="../attractions/illinois-amblers-texaco-station.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/odell_subway_tunnel.jpg?auto=compress&cs=tinysrgb&w=800" alt="Odell Subway Tunnel" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Odell Subway Tunnel</h3>
+        <p>Pedestrian tunnel under Route 66, a unique piece of highway infrastructure from the early days.</p>
+        <a href="../attractions/illinois-odell-subway-tunnel.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/odell_standard_oil.jpg?auto=compress&cs=tinysrgb&w=800" alt="Standard Oil Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Standard Oil Station</h3>
+        <p>1932 station, restored with original pumps and serving as a museum of early automotive travel.</p>
+        <a href="../attractions/illinois-odell-standard-oil-station.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/pontiac_auto_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Pontiac Oakland Auto Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Pontiac Oakland Auto Museum</h3>
+        <p>Historic cars and GM history, celebrating the automotive heritage of the Pontiac brand.</p>
+        <a href="../attractions/illinois-pontiac-oakland-auto-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/livingston_county_war_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Livingston County War Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Livingston County War Museum</h3>
+        <p>Military memorabilia and exhibits housed inside a historic building, showcasing local military history.</p>
+        <a href="../attractions/illinois-livingston-county-war-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/giant_shield_pontiac.jpg?auto=compress&cs=tinysrgb&w=800" alt="Route 66 Shield Mural" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Route 66 Shield Mural</h3>
+        <p>Perfect photo-op with a massive Route 66 shield painted on a downtown building wall.</p>
+        <a href="../attractions/illinois-pontiac-route66-shield.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/murals_on_mainstreet.jpg?auto=compress&cs=tinysrgb&w=800" alt="Murals on Main Street" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Murals on Main Street</h3>
+        <p>Over 20 murals across town depicting local history, Route 66 heritage, and community pride.</p>
+        <a href="../attractions/illinois-murals-main-street-pontiac.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/cities_service_station.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cities Service Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Cities Service Station</h3>
+        <p>Restored 1950s service station showcasing mid-century automotive service architecture.</p>
+        <a href="../attractions/illinois-cities-service-lexington.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/memory_lane.jpg?auto=compress&cs=tinysrgb&w=800" alt="Memory Lane" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Memory Lane</h3>
+        <p>Preserved brick road from early Route 66, offering a connection to the highway's original surface.</p>
+        <a href="../attractions/illinois-memory-lane-lexington.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/towanda_walking_trail.jpg?auto=compress&cs=tinysrgb&w=800" alt="Historic Walking Trail" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Historic Walking Trail</h3>
+        <p>Route 66 history signs along the old alignment, telling the story of the highway's impact on small-town America.</p>
+        <a href="../attractions/illinois-historic-walking-trail-towanda.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/cruisin_with_lincoln.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cruisin' with Lincoln" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Cruisin' with Lincoln</h3>
+        <p>Located in the McLean County Museum of History, featuring exhibits on Lincoln and Route 66 connections.</p>
+        <a href="../attractions/illinois-cruisin-with-lincoln.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/spragues_super_service.jpg?auto=compress&cs=tinysrgb&w=800" alt="Sprague's Super Service" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Sprague's Super Service</h3>
+        <p>Tudor Revival gas station & café from 1931, representing the architectural evolution of roadside services.</p>
+        <a href="../attractions/illinois-spragues-super-service.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/dixie_travel_plaza.jpg?auto=compress&cs=tinysrgb&w=800" alt="Dixie Travel Plaza" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Dixie Travel Plaza</h3>
+        <p>Classic Route 66 truck stop since 1928, serving travelers with fuel, food, and hospitality for nearly a century.</p>
+        <a href="../attractions/illinois-dixie-travel-plaza.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/tall_paul_bunyan.jpg?auto=compress&cs=tinysrgb&w=800" alt="Tall Paul Bunyan Statue" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Tall Paul Bunyan Statue</h3>
+        <p>Another fiberglass Muffler Man holding a hot dog, standing guard over this small Illinois town.</p>
+        <a href="../attractions/illinois-tall-paul-bunyan-statue.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/palms_grill_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Palm's Grill Café" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Palm's Grill Café</h3>
+        <p>1930s diner experience serving classic American comfort food in an authentic vintage setting.</p>
+        <a href="../attractions/illinois-palms-grill-cafe.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/american_giants_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="American Giants Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>American Giants Museum</h3>
+        <p>The American Giants Museum is a museum dedicated to preserving the history of Muffler Men, those towering fiberglass giants that became icon...</p>
+        <a href="../attractions/illinois-american-giants-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/largest_covered_wagon.jpg?auto=compress&cs=tinysrgb&w=800" alt="World's Largest Covered Wagon" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>World's Largest Covered Wagon</h3>
+        <p>Abraham Lincoln statue driving it, commemorating the town named after Lincoln before his presidency.</p>
+        <a href="../attractions/illinois-worlds-largest-covered-wagon.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/downtown_lincoln.jpg?auto=compress&cs=tinysrgb&w=800" alt="Downtown Lincoln Murals" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Downtown Lincoln Murals</h3>
+        <p>Named after Abraham Lincoln before presidency, featuring historic buildings and Lincoln-related sites.</p>
+        <a href="../attractions/illinois-downtown-lincoln-murals.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/pig_hip_restaurant.jpg?auto=compress&cs=tinysrgb&w=800" alt="Pig Hip Restaurant Site" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Pig Hip Restaurant Site</h3>
+        <p>Historic sign and marker where the famous restaurant once stood (burned down in 2007), preserving its memory.</p>
+        <a href="../attractions/illinois-pig-hip-restaurant-site.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/country_bumpkin.jpg?auto=compress&cs=tinysrgb&w=800" alt="The Country Bumpkin" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>The Country Bumpkin</h3>
+        <p>Gift shop with Route 66 items, antiques, and local crafts celebrating rural Illinois heritage.</p>
+        <a href="../attractions/illinois-country-bumpkin.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/downtown_williamsville.jpg?auto=compress&cs=tinysrgb&w=800" alt="Old Sinclair Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Old Sinclair Station</h3>
+        <p>Small town nostalgia with preserved Route 66 signage and vintage storefronts.</p>
+        <a href="../attractions/illinois-williamsville-sinclair-station.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/illinois_state_capitol.jpg?auto=compress&cs=tinysrgb&w=800" alt="Illinois State Capitol" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Illinois State Capitol</h3>
+        <p>Towering dome and legislative center, showcasing Illinois government and architecture.</p>
+        <a href="../attractions/illinois-illinois-state-capitol.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/abe_lincoln_library.jpg?auto=compress&cs=tinysrgb&w=800" alt="Lincoln Presidential Library" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Lincoln Presidential Library</h3>
+        <p>Award-winning interactive exhibits exploring Lincoln's life, presidency, and legacy.</p>
+        <a href="../attractions/illinois-lincoln-presidential-library.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/abe_lincoln_home.jpg?auto=compress&cs=tinysrgb&w=800" alt="Abe Lincoln Homesite" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Abe Lincoln Homesite</h3>
+        <p>Preserved neighborhood and home where Abraham Lincoln lived before becoming president.</p>
+        <a href="../attractions/illinois-abe-lincoln-homesite.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/cozy_dog_drivein.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cozy Dog Drive-In" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Cozy Dog Drive-In</h3>
+        <p>Home of the original corn dog on a stick, invented here in 1946 and a true Route 66 culinary landmark.</p>
+        <a href="../attractions/illinois-cozy-dog-drive-in.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/motorheads.jpg?auto=compress&cs=tinysrgb&w=800" alt="Motorheads Bar & Grill" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Motorheads Bar & Grill</h3>
+        <p>Full of memorabilia and classic cars, offering dining and Route 66 history under one roof.</p>
+        <a href="../attractions/illinois-motorheads-bar-grill.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/original_brick_road.jpg?auto=compress&cs=tinysrgb&w=800" alt="Original Brick Road Segment" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Original Brick Road Segment</h3>
+        <p>A surviving stretch of 1920s brick Route 66, offering a tactile connection to the highway's early construction.</p>
+        <a href="../attractions/illinois-original-brick-road-segment.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/chatham_rr_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Chatham Railroad Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Chatham Railroad Museum</h3>
+        <p>Vintage locomotives and artifacts showcasing the railroad heritage that preceded the automobile age.</p>
+        <a href="../attractions/illinois-chatham-railroad-museum.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/downtown_carlinville.jpg?auto=compress&cs=tinysrgb&w=800" alt="Carlinville Town Square" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Carlinville Town Square</h3>
+        <p>Charming town square and Sears Home district featuring well-preserved 19th and early 20th-century architecture.</p>
+        <a href="../attractions/illinois-carlinville-town-square.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/cannonball_jail.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cannonball Jail" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Cannonball Jail</h3>
+        <p>Civil War-era jail building with unique architecture and local historical significance.</p>
+        <a href="../attractions/illinois-cannonball-jail.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/jubelts_bakery.jpg?auto=compress&cs=tinysrgb&w=800" alt="Jubelt's Bakery" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Jubelt's Bakery</h3>
+        <p>Jubelt's is a Route 66 favorite, popular with travelers seeking a nostalgic, mom-and-pop food experience.</p>
+        <a href="../attractions/illinois-jubelts-bakery.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/litchfield_museum.jpg?auto=compress&cs=tinysrgb&w=800" alt="Litchfield Museum" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-museum">museum</span>
+        <h3>Litchfield Museum</h3>
+        <p>Well-curated local museum with Route 66 exhibits, maps, and visitor information.</p>
+        <a href="../attractions/illinois-litchfield-museum-welcome-center.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/ariston_cafe.jpg?auto=compress&cs=tinysrgb&w=800" alt="Ariston Café" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Ariston Café</h3>
+        <p>One of the oldest Route 66 restaurants (since 1924), serving traditional American fare to four generations of travelers.</p>
+        <a href="../attractions/illinois-ariston-cafe.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/soulsby_service_station.jpg?auto=compress&cs=tinysrgb&w=800" alt="Soulsby Shell Station" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Soulsby Shell Station</h3>
+        <p>1926 station, beautifully restored as one of the oldest surviving gas stations on Route 66.</p>
+        <a href="../attractions/illinois-soulsby-shell-station.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/mother_jones_grave.jpg?auto=compress&cs=tinysrgb&w=800" alt="Union Miners Cemetery" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Union Miners Cemetery</h3>
+        <p>Includes grave of labor martyr Mary Harris "Mother" Jones, honoring the area's coal mining heritage.</p>
+        <a href="../attractions/illinois-union-miners-cemetery.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/henrys_rabbit_ranch.jpg?auto=compress&cs=tinysrgb&w=800" alt="Henry's Rabbit Ranch" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Henry's Rabbit Ranch</h3>
+        <p>Homage to Route 66 and Volkswagen Rabbits, with real rabbits and quirky automotive memorabilia.</p>
+        <a href="../attractions/illinois-henrys-rabbit-ranch.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/pink_elephant.jpg?auto=compress&cs=tinysrgb&w=800" alt="Pink Elephant Antique Mall" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Pink Elephant Antique Mall</h3>
+        <p>The Pink Elephant Antique Mall is a quirky and beloved Route 66 roadside attraction with 50 antique vendors inside a former high school.</p>
+        <a href="../attractions/illinois-pink-elephant-antique-mall.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/weezys_bar.jpg?auto=compress&cs=tinysrgb&w=800" alt="Weezy's Route 66 Bar & Grill" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-food">food</span>
+        <h3>Weezy's Route 66 Bar & Grill</h3>
+        <p>Former service station turned eatery, maintaining its automotive heritage while serving great food.</p>
+        <a href="../attractions/illinois-weezys-route66-bar-grill.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/wildey_theatre.jpg?auto=compress&cs=tinysrgb&w=800" alt="Wildey Theatre" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-landmark">landmark</span>
+        <h3>Wildey Theatre</h3>
+        <p>1909 restored vaudeville house presenting live performances in a beautifully preserved historic venue.</p>
+        <a href="../attractions/illinois-wildey-theatre.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/edwardsville_mural.jpg?auto=compress&cs=tinysrgb&w=800" alt="Edwardsville 66 Murals" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>Edwardsville 66 Murals</h3>
+        <p>Outdoor public art celebrating the highway's impact on the community and American culture.</p>
+        <a href="../attractions/illinois-edwardsville-route66-murals.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/cahokia_mounds.jpg?auto=compress&cs=tinysrgb&w=800" alt="Cahokia Mounds" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Cahokia Mounds</h3>
+        <p>Ancient Native American city, UNESCO World Heritage Site showcasing pre-Columbian civilization.</p>
+        <a href="../attractions/illinois-cahokia-mounds.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/largest_catsup_bottle.jpg?auto=compress&cs=tinysrgb&w=800" alt="World's Largest Catsup Bottle" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-attraction">attraction</span>
+        <h3>World's Largest Catsup Bottle</h3>
+        <p>170-ft tall water tower shaped like a ketchup bottle, an iconic roadside landmark since 1949.</p>
+        <a href="../attractions/illinois-worlds-largest-catsup-bottle.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cruisinroute66.com/states/illinois/chain_of_rocks_bridge.jpg?auto=compress&cs=tinysrgb&w=800" alt="Chain of Rocks Bridge" loading="lazy">
+      <div class="card-body">
+        <span class="badge badge-ruins">ruins</span>
+        <h3>Chain of Rocks Bridge</h3>
+        <p>Old Route 66 bridge over the Mississippi with 22-degree bend, now a pedestrian walkway with stunning river views.</p>
+        <a href="../attractions/illinois-chain-of-rocks-bridge-il.html" class="btn btn-primary">View Details & Comments</a>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p>© 2026 Cruisin' Route 66 — America's Mother Road</p>
+    <p style="margin-top:0.5rem;"><a href="../index.html">Back to Main Site</a></p>
+  </div>
+</footer>
+</body>
+</html>
